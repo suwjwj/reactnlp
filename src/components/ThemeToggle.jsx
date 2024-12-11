@@ -50,17 +50,17 @@ const ThemeToggle = ({ isDarkMode, toggleTheme }) => {
         }}
       >
         {isDarkMode ? (
-          <Brightness7Icon
-            sx={{
-              color: '#FDB813',
-              filter: 'drop-shadow(0 0 8px rgba(253, 184, 19, 0.5))',
-            }}
-          />
-        ) : (
           <Brightness4Icon
             sx={{
               color: '#818CF8',
               filter: 'drop-shadow(0 0 8px rgba(129, 140, 248, 0.5))',
+            }}
+          />
+        ) : (
+          <Brightness7Icon
+            sx={{
+              color: '#FDB813',
+              filter: 'drop-shadow(0 0 8px rgba(253, 184, 19, 0.5))',
             }}
           />
         )}

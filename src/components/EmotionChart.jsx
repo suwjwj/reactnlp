@@ -218,6 +218,7 @@ const EmotionChart = ({ history }) => {
           justifyContent: 'center',
           flexWrap: 'wrap',
           gap: 2,
+          mt: 3,
         }}
       >
         {data.map((item) => (
@@ -233,21 +234,48 @@ const EmotionChart = ({ history }) => {
                 transition: 'all 0.3s ease',
                 background: hoveredId === item.id
                   ? `linear-gradient(135deg, ${item.gradient[0]}, ${item.gradient[1]})`
-                  : 'rgba(255, 255, 255, 0.05)',
-                color: hoveredId === item.id ? '#fff' : 'text.primary',
-                '&:hover': {
-                  background: `linear-gradient(135deg, ${item.gradient[0]}, ${item.gradient[1]})`,
-                  color: '#fff',
-                  transform: 'translateY(-2px)',
-                },
+                  : `linear-gradient(135deg, ${item.gradient[0]}33, ${item.gradient[1]}33)`,
+                backdropFilter: 'blur(10px)',
+                border: hoveredId === item.id
+                  ? `1px solid ${item.gradient[0]}`
+                  : `1px solid ${item.gradient[0]}33`,
+                boxShadow: hoveredId === item.id
+                  ? `0 4px 12px ${item.gradient[0]}66`
+                  : `0 2px 8px ${item.gradient[0]}1a`,
               }}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              {item.icon}
-              <Typography sx={{ fontWeight: 500 }}>
-                {item.label}: {getPercentage(item.value)}%
-              </Typography>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                }}
+              >
+                {item.icon}
+                <Typography
+                  sx={{
+                    fontWeight: 500,
+                    color: hoveredId === item.id ? '#fff' : item.gradient[0],
+                    transition: 'color 0.3s ease',
+                  }}
+                >
+                  {item.label}:
+                </Typography>
+                <Typography
+                  sx={{
+                    fontWeight: 600,
+                    background: `linear-gradient(135deg, ${item.gradient[0]}, ${item.gradient[1]})`,
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: hoveredId === item.id ? '#fff' : 'transparent',
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  {getPercentage(item.value)}%
+                </Typography>
+              </Box>
             </Box>
           </Fade>
         ))}
